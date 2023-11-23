@@ -15,10 +15,10 @@ class MedicsController < ApplicationController
 
   # POST /medics
   def create
-    @medic = Medic.new(registry:params[:numeroRegistro], user_id:params[:"usuario.id"], specialty_id:params[:"especialidade.id"])
+    @medic = Medic.new(registry:params[:numeroRegistro], id:params[:"usuario.id"], specialty_id:params[:"especialidade.id"])
 
     if @medic.save
-      render json: {id: @medic.id, numeroRegistro: @medic.registry,"usuario.nome": @medic.user_id, "especialidade.id": @medic.specialty_id, "especialidade.nome": @medic.specialty.name, createdAt: @medic.created_at, updatedAt: @medic.updated_at}, status: :created, location: @medic
+      render json: {id: @medic.id, numeroRegistro: @medic.registry,"usuario.nome": @medic.id, "especialidade.id": @medic.specialty_id, "especialidade.nome": @medic.specialty.name, createdAt: @medic.created_at, updatedAt: @medic.updated_at}, status: :created, location: @medic
     else
       render json: @medic.errors, status: :unprocessable_entity
     end
@@ -27,8 +27,8 @@ class MedicsController < ApplicationController
   # PATCH/PUT /medics/1
   def update
     puts(@specialty) 
-    if @medic.update(registry:params[:numeroRegistro], user_id:params[:"usuario.id"], specialty_id:params[:"especialidade.id"])
-      render json: {id: @medic.id, numeroRegistro: @medic.registry,"usuario.nome": @medic.user_id, "especialidade.id": @medic.specialty_id, "especialidade.nome": @medic.specialty.name, createdAt: @medic.created_at, updatedAt: @medic.updated_at}
+    if @medic.update(registry:params[:numeroRegistro], id:params[:"usuario.id"], specialty_id:params[:"especialidade.id"])
+      render json: {id: @medic.id, numeroRegistro: @medic.registry,"usuario.nome": @medic.id, "especialidade.id": @medic.specialty_id, "especialidade.nome": @medic.specialty.name, createdAt: @medic.created_at, updatedAt: @medic.updated_at}
     else
       render json: @medic.errors, status: :unprocessable_entity
     end
@@ -48,6 +48,6 @@ class MedicsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def medic_params
 
-      params.permit(:user_id, "especialidade.id", :numeroRegistro)
+      params.permit(:id, "especialidade.id", :numeroRegistro)
     end
 end
