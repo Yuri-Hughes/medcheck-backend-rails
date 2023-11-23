@@ -12,7 +12,7 @@ class MedicsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create medic" do
     assert_difference("Medic.count") do
-      post medics_url, params: { medic: { registry: @medic.registry, specialty_id: @medic.specialty_id, user_id: @medic.user_id } }, as: :json
+      post medics_url, params: { medic: { registry: @medic.registry, specialty_id: @medic.specialty_id, uid: @medic.id } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class MedicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update medic" do
-    patch medic_url(@medic), params: { medic: { registry: @medic.registry, specialty_id: @medic.specialty_id, user_id: @medic.user_id } }, as: :json
+    patch medic_url(@medic), params: { medic: { registry: @medic.registry, specialty_id: @medic.specialty_id, id: @medic.id } }, as: :json
     assert_response :success
   end
 
